@@ -234,6 +234,46 @@ namespace AnnotatedSentence
 
 
         /**
+         * <summary>The toStems method returns an accumulated string of each word's stems in words {@link ArrayList}.
+         * If the parse of the word does not exist, the method adds the surfaceform to the resulting string.</summary>
+         *
+         * <returns>String result which has all the stems of each item in words {@link ArrayList}.</returns>
+         */
+        public string ToStems()
+        {
+            if (words.Count > 0)
+            {
+                var annotatedWord = (AnnotatedWord) words[0];
+                string result;
+                if (annotatedWord.GetParse() != null)
+                {
+                    result = annotatedWord.GetParse().GetWord().GetName();
+                }
+                else
+                {
+                    result = annotatedWord.GetName();
+                }
+
+                for (var i = 1; i < words.Count; i++)
+                {
+                    annotatedWord = (AnnotatedWord) words[i];
+                    if (annotatedWord.GetParse() != null)
+                    {
+                        result = result + " " + annotatedWord.GetParse().GetWord().GetName();
+                    }
+                    else
+                    {
+                        result = result + " " + annotatedWord.GetName();
+                    }
+                }
+
+                return result;
+            }
+
+            return "";
+        }
+
+        /**
          * <summary> Saves the current sentence.</summary>
          */
         public void Save()
