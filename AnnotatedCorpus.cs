@@ -22,6 +22,7 @@ namespace AnnotatedSentence
         {
             sentences = new List<Sentence>();
             var listOfFiles = Directory.GetFiles(folder);
+            Array.Sort(listOfFiles);
             foreach (var file in listOfFiles)
             {
                 if (!file.Contains(pattern))
@@ -40,6 +41,7 @@ namespace AnnotatedSentence
         {
             sentences = new List<Sentence>();
             var listOfFiles = Directory.GetFiles(folder);
+            Array.Sort(listOfFiles);
             foreach (var file in listOfFiles)
             {
                 var sentence = new AnnotatedSentence(new FileInfo(file));
