@@ -2,6 +2,11 @@
 
 This resource allows for matching of Turkish words or expressions with their corresponding entries within the Turkish dictionary and the Turkish PropBank, morphological analysis, named entity recognition and shallow parsing.
 
+For Developers
+============
+
+You can also see [Java](https://github.com/starlangsoftware/AnnotatedSentence), [Python](https://github.com/starlangsoftware/AnnotatedSentence-Py), or [C++](https://github.com/starlangsoftware/AnnotatedSentence-CPP) repository.
+
 ## Data Format
 
 The structure of a sample annotated word is as follows:
