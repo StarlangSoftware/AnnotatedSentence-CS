@@ -97,10 +97,7 @@ namespace AnnotatedSentence
                 result = result + "{semantics=" + _semantic + "}";
             }
 
-            if (_namedEntityType != null)
-            {
-                result = result + "{namedEntity=" + _namedEntityType + "}";
-            }
+            result = result + "{namedEntity=" + _namedEntityType + "}";
 
             if (_argument != null)
             {
@@ -195,12 +192,7 @@ namespace AnnotatedSentence
                 case ViewLayerType.SEMANTICS:
                     return _semantic;
                 case ViewLayerType.NER:
-                    if (_namedEntityType != null)
-                    {
-                        return _namedEntityType.ToString();
-                    }
-
-                    break;
+                    return _namedEntityType.ToString();
                 case ViewLayerType.SHALLOW_PARSE:
                     return _shallowParse;
                 case ViewLayerType.TURKISH_WORD:
