@@ -8,11 +8,11 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="NlpToolkit-DependencyParser" Version="1.0.0" />
-      <PackageReference Include="NlpToolkit-MorphologicalDisambiguation" Version="1.0.0" />
-      <PackageReference Include="NlpToolkit-NamedEntityRecognition" Version="1.0.0" />
-      <PackageReference Include="NlpToolkit-PropBank" Version="1.0.0" />
-      <PackageReference Include="NlpToolkit-WordNet" Version="1.0.0" />
+      <PackageReference Include="NlpToolkit-DependencyParser" Version="1.0.2" />
+      <PackageReference Include="NlpToolkit-MorphologicalDisambiguation" Version="1.0.1" />
+      <PackageReference Include="NlpToolkit-NamedEntityRecognition" Version="1.0.2" />
+      <PackageReference Include="NlpToolkit-PropBank" Version="1.0.2" />
+      <PackageReference Include="NlpToolkit-WordNet" Version="1.0.2" />
     </ItemGroup>
 
 </Project>
