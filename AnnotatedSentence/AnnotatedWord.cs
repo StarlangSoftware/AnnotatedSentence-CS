@@ -1,7 +1,7 @@
 using System.Drawing;
 using System.Globalization;
 using Corpus;
-using DependencyParser;
+using DependencyParser.Universal;
 using Dictionary.Dictionary;
 using MorphologicalAnalysis;
 using NamedEntityRecognition;
