@@ -281,6 +281,19 @@ namespace AnnotatedSentence
             WriteToFile(new StreamWriter(_file.FullName));
         }
 
+        public string GetUniversalDependencyFormat()
+        {
+            var result = "# sent_id = " + GetFileName() + "\n" + "# text = " + ToWords() + "\n";
+            for (var i = 0; i < WordCount(); i++)
+            {
+                var word = (AnnotatedWord) GetWord(i);
+                result += (i + 1) + "\t" + word.GetUniversalDependencyFormat(WordCount()) + "\n";
+            }
+
+            result += "\n";
+            return result;
+        }
+
         /**
          * <summary> Creates a list of literal candidates for the i'th word in the sentence. It combines the results of
          * 1. All possible root forms of the i'th word in the sentence

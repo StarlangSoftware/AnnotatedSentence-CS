@@ -49,6 +49,18 @@ namespace AnnotatedSentence
             }
         }
 
+        public void ExportUniversalDependencyFormat(string outputFileName)
+        {
+            var streamWriter = new StreamWriter(outputFileName);
+            foreach (var s in sentences)
+            {
+                var sentence = (AnnotatedSentence) s;
+                streamWriter.Write(sentence.GetUniversalDependencyFormat());
+            }
+
+            streamWriter.Close();
+        }
+
         /**
          * <summary> The method removes all empty words from the sentences.</summary>
          */

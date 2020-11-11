@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using Corpus;
@@ -362,6 +364,52 @@ namespace AnnotatedSentence
         public void SetUniversalDependency(int to, string dependencyType)
         {
             _universalDependency = new UniversalDependencyRelation(to, dependencyType);
+        }
+
+        public string GetUniversalDependencyFormat(int sentenceLength)
+        {
+            if (_parse != null)
+            {
+                var result = name + "\t" + _parse.GetWord().GetName() + "\t" + _parse.GetUniversalDependencyPos() +
+                             "\t_\t";
+                var features = _parse.GetUniversalDependencyFeatures();
+                if (features.Count == 0)
+                {
+                    result += "_";
+                }
+                else
+                {
+                    var first = true;
+                    foreach (var feature in features)
+                    {
+                        if (first)
+                        {
+                            first = false;
+                        }
+                        else
+                        {
+                            result += "|";
+                        }
+
+                        result += feature;
+                    }
+                }
+
+                result += "\t";
+                if (_universalDependency != null && _universalDependency.To() <= sentenceLength)
+                {
+                    result += _universalDependency.To() + "\t" + _universalDependency.ToString().ToLower() + "\t";
+                }
+                else
+                {
+                    result += "_\t_\t";
+                }
+
+                result += "_\t_";
+                return result;
+            }
+
+            return name + "\t" + name + "\t_\t_\t_\t_\t_\t_\t_";
         }
 
         public string GetFormattedString(WordFormat format)
