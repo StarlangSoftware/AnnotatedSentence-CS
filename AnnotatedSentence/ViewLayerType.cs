@@ -19,6 +19,7 @@ namespace AnnotatedSentence
         PROPBANK,
         SHALLOW_PARSE,
         ENGLISH_PROPBANK,
-        ENGLISH_SEMANTICS
+        ENGLISH_SEMANTICS,
+        FRAMENET
     }
 }

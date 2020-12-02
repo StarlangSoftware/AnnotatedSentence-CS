@@ -106,6 +106,26 @@ namespace AnnotatedSentence
             return false;
         }
 
+        /**
+         * <summary> The method checks all words in the sentence and returns true if at least one of the words is annotated with
+         * PREDICATE tag.</summary>
+         * <returns>True if at least one of the words is annotated with PREDICATE tag; false otherwise.</returns>
+         */
+        public bool ContainsFramePredicate()
+        {
+            foreach (var word in words)
+            {
+                var annotatedWord = (AnnotatedWord) word;
+                if (annotatedWord.GetFrameElement() != null &&
+                    annotatedWord.GetFrameElement().GetFrameElementType().Equals("PREDICATE"))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
         public bool UpdateConnectedPredicate(string previousId, string currentId)
         {
             var modified = false;
@@ -116,6 +136,12 @@ namespace AnnotatedSentence
                     annotatedWord.GetArgument().GetId().Equals(previousId))
                 {
                     annotatedWord.SetArgument(annotatedWord.GetArgument().GetArgumentType() + "$" + currentId);
+                    modified = true;
+                }
+                if (annotatedWord.GetFrameElement() != null && annotatedWord.GetFrameElement().GetId() != null &&
+                    annotatedWord.GetFrameElement().GetId().Equals(previousId))
+                {
+                    annotatedWord.SetFrameElement(annotatedWord.GetFrameElement().GetFrameElementType() + "$" + annotatedWord.GetFrameElement().GetFrame() + "$" + currentId);
                     modified = true;
                 }
             }
@@ -139,6 +165,45 @@ namespace AnnotatedSentence
                 var annotatedWord = (AnnotatedWord) word;
                 if (annotatedWord.GetParse() != null && annotatedWord.GetParse().IsVerb() &&
                     annotatedWord.GetSemantic() != null && framesetList.FrameExists(annotatedWord.GetSemantic()))
+                {
+                    candidateList.Add(annotatedWord);
+                }
+            }
+
+            for (var i = 0; i < 2; i++)
+            {
+                for (var j = 0; j < words.Count - i - 1; j++)
+                {
+                    var annotatedWord = (AnnotatedWord) words[j];
+                    var nextAnnotatedWord = (AnnotatedWord) words[j + 1];
+                    if (!candidateList.Contains(annotatedWord) && candidateList.Contains(nextAnnotatedWord) &&
+                        annotatedWord.GetSemantic() != null &&
+                        annotatedWord.GetSemantic().Equals(nextAnnotatedWord.GetSemantic()))
+                    {
+                        candidateList.Add(annotatedWord);
+                    }
+                }
+            }
+
+            return candidateList;
+        }
+
+        /**
+         * <summary> The method returns all possible words, which is
+         * 1. Verb
+         * 2. Its semantic tag is assigned
+         * 3. A frameset exists for that semantic tag</summary>
+         * <param name="frameNet">FrameNet that contains all frames for Turkish</param>
+         * <returns>An array of words, which are verbs, semantic tags assigned, and frameNet assigned for that tag.</returns>
+         */
+        public List<AnnotatedWord> PredicateFrameCandidates(FrameNet.FrameNet frameNet)
+        {
+            var candidateList = new List<AnnotatedWord>();
+            foreach (var word in words)
+            {
+                var annotatedWord = (AnnotatedWord) word;
+                if (annotatedWord.GetParse() != null && annotatedWord.GetParse().IsVerb() &&
+                    annotatedWord.GetSemantic() != null && frameNet.LexicalUnitExists(annotatedWord.GetSemantic()))
                 {
                     candidateList.Add(annotatedWord);
                 }

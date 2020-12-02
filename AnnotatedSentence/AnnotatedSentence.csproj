@@ -1,14 +1,15 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFramework>netcoreapp2.2</TargetFramework>
+        <TargetFramework>netcoreapp3.1</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>NlpToolkit-AnnotatedSentence</PackageId>
-        <PackageVersion>1.0.5</PackageVersion>
+        <PackageVersion>1.0.6</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="NlpToolkit-DependencyParser" Version="1.0.4" />
+      <PackageReference Include="NlpToolkit-FrameNet" Version="1.0.2" />
       <PackageReference Include="NlpToolkit-MorphologicalAnalysis" Version="1.0.5" />
       <PackageReference Include="NlpToolkit-MorphologicalDisambiguation" Version="1.0.1" />
       <PackageReference Include="NlpToolkit-NamedEntityRecognition" Version="1.0.2" />

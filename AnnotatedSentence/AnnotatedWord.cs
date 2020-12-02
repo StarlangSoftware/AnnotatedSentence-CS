@@ -5,6 +5,7 @@ using System.Globalization;
 using Corpus;
 using DependencyParser.Universal;
 using Dictionary.Dictionary;
+using FrameNet;
 using MorphologicalAnalysis;
 using NamedEntityRecognition;
 using PropBank;
@@ -18,6 +19,7 @@ namespace AnnotatedSentence
         private string _semantic;
         private NamedEntityType _namedEntityType;
         private Argument _argument;
+        private FrameElement _frameElement;
         private UniversalDependencyRelation _universalDependency;
         private string _shallowParse;
         private Rectangle _area;
@@ -63,6 +65,9 @@ namespace AnnotatedSentence
                     case "propbank":
                         _argument = new Argument(layerValue);
                         break;
+                    case "framenet":
+                        _frameElement = new FrameElement(layerValue);
+                        break;
                     case "shallowParse":
                         _shallowParse = layerValue;
                         break;
@@ -106,6 +111,11 @@ namespace AnnotatedSentence
                 result = result + "{propbank=" + _argument + "}";
             }
 
+            if (_frameElement != null)
+            {
+                result = result + "{framenet=" + _frameElement + "}";
+            }
+
             if (_shallowParse != null)
             {
                 result = result + "{shallowParse=" + _shallowParse + "}";
@@ -134,6 +144,7 @@ namespace AnnotatedSentence
             _argument = new Argument("NONE", null);
             _shallowParse = null;
             _universalDependency = null;
+            _frameElement = null;
         }
 
         /**
@@ -150,6 +161,7 @@ namespace AnnotatedSentence
             _semantic = null;
             _shallowParse = null;
             _universalDependency = null;
+            _frameElement = null;
         }
 
         /**
@@ -166,6 +178,7 @@ namespace AnnotatedSentence
             _semantic = null;
             _shallowParse = null;
             _universalDependency = null;
+            _frameElement = null;
         }
 
         /**
@@ -203,6 +216,13 @@ namespace AnnotatedSentence
                     if (_argument != null)
                     {
                         return _argument.ToString();
+                    }
+
+                    break;
+                case ViewLayerType.FRAMENET:
+                    if (_frameElement != null)
+                    {
+                        return _frameElement.ToString();
                     }
 
                     break;
@@ -326,6 +346,31 @@ namespace AnnotatedSentence
             else
             {
                 this._argument = null;
+            }
+        }
+
+        /**
+         * <summary> Returns the frame element layer of the word.</summary>
+         * <returns>Frame element tag of the word.</returns>
+         */
+        public FrameElement GetFrameElement()
+        {
+            return _frameElement;
+        }
+
+        /**
+         * <summary> Sets the frame element layer of the word.</summary>
+         * <param name="frameElement">New frame element tag of the word.</param>
+         */
+        public void SetFrameElement(string frameElement)
+        {
+            if (_frameElement != null)
+            {
+                this._frameElement = new FrameElement(frameElement);
+            }
+            else
+            {
+                this._frameElement = null;
             }
         }
 
