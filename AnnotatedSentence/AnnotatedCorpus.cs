@@ -49,13 +49,13 @@ namespace AnnotatedSentence
             }
         }
 
-        public void ExportUniversalDependencyFormat(string outputFileName)
+        public void ExportUniversalDependencyFormat(string outputFileName, string path = "")
         {
             var streamWriter = new StreamWriter(outputFileName);
             foreach (var s in sentences)
             {
                 var sentence = (AnnotatedSentence) s;
-                streamWriter.Write(sentence.GetUniversalDependencyFormat());
+                streamWriter.Write(sentence.GetUniversalDependencyFormat(path));
             }
 
             streamWriter.Close();

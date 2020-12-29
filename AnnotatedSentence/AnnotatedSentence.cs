@@ -346,9 +346,9 @@ namespace AnnotatedSentence
             WriteToFile(new StreamWriter(_file.FullName));
         }
 
-        public string GetUniversalDependencyFormat()
+        public string GetUniversalDependencyFormat(string path = "")
         {
-            var result = "# sent_id = " + GetFileName() + "\n" + "# text = " + ToWords() + "\n";
+            var result = "# sent_id = " + path + GetFileName() + "\n" + "# text = " + ToWords() + "\n";
             for (var i = 0; i < WordCount(); i++)
             {
                 var word = (AnnotatedWord) GetWord(i);
