@@ -2,10 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Corpus;
-using DataStructure;
 using Dictionary.Dictionary;
-using MorphologicalAnalysis;
-using MorphologicalDisambiguation;
 
 namespace AnnotatedSentence
 {
@@ -197,49 +194,5 @@ namespace AnnotatedSentence
             return dictionary;
         }
 
-        public RootWordStatistics ExtractRootWordStatistics(FsmMorphologicalAnalyzer fsm)
-        {
-            var statistics = new RootWordStatistics();
-            var rootWordFiles = new Dictionary<string, List<string>>();
-            for (var i = 0; i < SentenceCount(); i++)
-            {
-                var sentence = (AnnotatedSentence) GetSentence(i);
-                for (var j = 0; j < sentence.WordCount(); j++)
-                {
-                    var word = (AnnotatedWord) sentence.GetWord(j);
-                    if (word.GetName() != null)
-                    {
-                        var parseList = fsm.MorphologicalAnalysis(word.GetName());
-                        var parse = word.GetParse();
-                        if (parseList.Size() > 0 && parse != null)
-                        {
-                            var rootWords = parseList.RootWords();
-                            if (rootWords.Contains("$"))
-                            {
-                                CounterHashMap<string> rootWordStatistics;
-                                List<string> fileNames;
-                                if (!statistics.ContainsKey(rootWords))
-                                {
-                                    rootWordStatistics = new CounterHashMap<string>();
-                                    fileNames = new List<string>();
-                                }
-                                else
-                                {
-                                    rootWordStatistics = statistics.Get(rootWords);
-                                    fileNames = rootWordFiles[rootWords];
-                                }
-
-                                fileNames.Add(sentence.GetFileName());
-                                rootWordFiles[rootWords] = fileNames;
-                                rootWordStatistics.Put(parse.GetWord().GetName());
-                                statistics.Put(rootWords, rootWordStatistics);
-                            }
-                        }
-                    }
-                }
-            }
-
-            return statistics;
-        }
     }
 }
