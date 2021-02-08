@@ -14,6 +14,10 @@ namespace AnnotatedSentence
     {
         private readonly FileInfo _file;
 
+        public AnnotatedSentence()
+        {
+        }
+        
         /**
          * <summary> Reads an annotated sentence from a text file.</summary>
          * <param name="file">File containing the annotated sentence.</param>
