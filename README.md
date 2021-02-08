@@ -1,3 +1,20 @@
+This resource allows for matching of Turkish words or expressions with their corresponding entries within the Turkish dictionary, the Turkish PropBank TRopBank, morphological analysis, named entity recognition, word senses from Turkish WordNet KeNet, shallow parsing, and universal dependency relation.
+
+## Data Format
+
+The structure of a sample annotated word is as follows:
+
+	{turkish=Gelir}
+	{morphologicalAnalysis=gelir+NOUN+A3SG+PNON+NOM}
+	{metaMorphemes=gelir}
+	{semantics=TUR10-0289950}
+	{namedEntity=NONE}
+	{propbank=ARG0$TUR10-0798130}
+	{shallowParse=ÖZNE}
+	{universalDependency=10$NSUBJ}
+
+As is self-explanatory, 'turkish' tag shows the original Turkish word; 'morphologicalAnalysis' tag shows the correct morphological parse of that word; 'semantics' tag shows the ID of the correct sense of that word; 'namedEntity' tag shows the named entity tag of that word; 'shallowParse' tag shows the semantic role of that word; 'universalDependency' tag shows the index of the head word and the universal dependency for this word; 'propbank' tag shows the semantic role of that word for the verb synset id (frame id in the frame file) which is also given in that tag.
+
 For Developers
 ============
 
