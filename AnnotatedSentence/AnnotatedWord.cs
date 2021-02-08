@@ -51,27 +51,34 @@ namespace AnnotatedSentence
                         name = layerValue;
                         break;
                     case "morphologicalAnalysis":
+                    case "morphologicalanalysis":
                         _parse = new MorphologicalParse(layerValue);
                         break;
                     case "metaMorphemes":
+                    case "metamorphemes":
                         _metamorphicParse = new MetamorphicParse(layerValue);
                         break;
                     case "semantics":
                         _semantic = layerValue;
                         break;
                     case "namedEntity":
+                    case "namedentity":
                         _namedEntityType = NamedEntityTypeStatic.GetNamedEntityType(layerValue);
                         break;
+                    case "propBank":
                     case "propbank":
                         _argument = new Argument(layerValue);
                         break;
                     case "framenet":
+                    case "frameNet":
                         _frameElement = new FrameElement(layerValue);
                         break;
                     case "shallowParse":
+                    case "shallowparse":
                         _shallowParse = layerValue;
                         break;
                     case "universalDependency":
+                    case "universaldependency":
                     {
                         var values = layerValue.Split("$");
                         _universalDependency = new UniversalDependencyRelation(int.Parse(values[0]), values[1]);
