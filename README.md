@@ -65,8 +65,6 @@ Detailed Description
 + [AnnotatedCorpus](#annotatedcorpus)
 + [AnnotatedSentence](#annotatedsentence)
 + [AnnotatedWord](#annotatedword)
-+ [Automatic Annotation](#automatic-annotation)
-
 
 ## AnnotatedCorpus
 
