@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -348,6 +349,11 @@ namespace AnnotatedSentence
         public void Save()
         {
             WriteToFile(new StreamWriter(_file.FullName));
+        }
+
+        public void Save(string fileName)
+        {
+            WriteToFile(new StreamWriter(fileName));
         }
 
         public string GetUniversalDependencyFormat(string path = "")
