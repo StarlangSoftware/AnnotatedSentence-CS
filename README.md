@@ -71,10 +71,10 @@ Detailed Description
 To load the annotated corpus:
 
 	AnnotatedCorpus(string folder, string pattern)
-	a = AnnotatedCorpus("/Turkish-Phrase", ".train")
+	a = new AnnotatedCorpus("/Turkish-Phrase", ".train")
 
 	AnnotatedCorpus(string folder)
-	a = AnnotatedCorpus("/Turkish-Phrase")
+	a = new AnnotatedCorpus("/Turkish-Phrase")
 
 To access all the sentences in a AnnotatedCorpus:
 
