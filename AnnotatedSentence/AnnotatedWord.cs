@@ -21,6 +21,7 @@ namespace AnnotatedSentence
         private Argument _argument;
         private FrameElement _frameElement;
         private UniversalDependencyRelation _universalDependency;
+        private Slot _slot;
         private string _shallowParse;
         private Rectangle _area;
         private bool _selected;
@@ -73,6 +74,9 @@ namespace AnnotatedSentence
                     case "frameNet":
                         _frameElement = new FrameElement(layerValue);
                         break;
+                    case "slot":
+                        _slot = new Slot(layerValue);
+                        break;
                     case "shallowParse":
                     case "shallowparse":
                         _shallowParse = layerValue;
@@ -123,6 +127,11 @@ namespace AnnotatedSentence
                 result = result + "{framenet=" + _frameElement + "}";
             }
 
+            if (_slot != null)
+            {
+                result = result + "{slot=" + _slot + "}";
+            }
+
             if (_shallowParse != null)
             {
                 result = result + "{shallowParse=" + _shallowParse + "}";
@@ -152,6 +161,7 @@ namespace AnnotatedSentence
             _shallowParse = null;
             _universalDependency = null;
             _frameElement = null;
+            _slot = null;
         }
 
         /**
@@ -169,6 +179,7 @@ namespace AnnotatedSentence
             _shallowParse = null;
             _universalDependency = null;
             _frameElement = null;
+            _slot = null;
         }
 
         /**
@@ -186,6 +197,7 @@ namespace AnnotatedSentence
             _shallowParse = null;
             _universalDependency = null;
             _frameElement = null;
+            _slot = null;
         }
 
         /**
@@ -230,6 +242,13 @@ namespace AnnotatedSentence
                     if (_frameElement != null)
                     {
                         return _frameElement.ToString();
+                    }
+
+                    break;
+                case ViewLayerType.SLOT:
+                    if (_slot != null)
+                    {
+                        return _slot.ToString();
                     }
 
                     break;
@@ -371,13 +390,38 @@ namespace AnnotatedSentence
          */
         public void SetFrameElement(string frameElement)
         {
-            if (_frameElement != null)
+            if (frameElement != null)
             {
                 this._frameElement = new FrameElement(frameElement);
             }
             else
             {
                 this._frameElement = null;
+            }
+        }
+
+        /**
+         * <summary> Returns the slot filling layer of the word.</summary>
+         * <returns>Slot tag of the word.</returns>
+         */
+        public Slot GetSlot()
+        {
+            return _slot;
+        }
+
+        /**
+         * <summary> Sets the slot filling layer of the word.</summary>
+         * <param name="slot">New slot tag of the word.</param>
+         */
+        public void SetSlot(string slot)
+        {
+            if (slot != null)
+            {
+                this._slot = new Slot(slot);
+            }
+            else
+            {
+                this._slot = null;
             }
         }
 

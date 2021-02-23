@@ -20,6 +20,7 @@ namespace AnnotatedSentence
         SHALLOW_PARSE,
         ENGLISH_PROPBANK,
         ENGLISH_SEMANTICS,
-        FRAMENET
+        FRAMENET,
+        SLOT
     }
 }
