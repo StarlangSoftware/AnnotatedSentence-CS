@@ -466,9 +466,10 @@ namespace AnnotatedSentence
         {
             if (_parse != null)
             {
-                var result = name + "\t" + _parse.GetWord().GetName() + "\t" + _parse.GetUniversalDependencyPos() +
+                var uPos = _parse.GetUniversalDependencyPos();
+                var result = name + "\t" + _parse.GetWord().GetName() + "\t" + uPos +
                              "\t_\t";
-                var features = _parse.GetUniversalDependencyFeatures();
+                var features = _parse.GetUniversalDependencyFeatures(uPos);
                 if (features.Count == 0)
                 {
                     result += "_";
