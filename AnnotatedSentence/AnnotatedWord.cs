@@ -9,6 +9,7 @@ using FrameNet;
 using MorphologicalAnalysis;
 using NamedEntityRecognition;
 using PropBank;
+using SentiNet;
 
 namespace AnnotatedSentence
 {
@@ -23,6 +24,7 @@ namespace AnnotatedSentence
         private UniversalDependencyRelation _universalDependency;
         private Slot _slot;
         private string _shallowParse;
+        private PolarityType _polarity;
         private Rectangle _area;
         private bool _selected;
 
@@ -76,6 +78,9 @@ namespace AnnotatedSentence
                         break;
                     case "slot":
                         _slot = new Slot(layerValue);
+                        break;
+                    case "polarity":
+                        SetPolarity(layerValue);
                         break;
                     case "shallowParse":
                     case "shallowparse":
@@ -132,6 +137,8 @@ namespace AnnotatedSentence
                 result = result + "{slot=" + _slot + "}";
             }
 
+            result = result + "{polarity=" + GetPolarityString() + "}";
+
             if (_shallowParse != null)
             {
                 result = result + "{shallowParse=" + _shallowParse + "}";
@@ -162,6 +169,7 @@ namespace AnnotatedSentence
             _universalDependency = null;
             _frameElement = null;
             _slot = null;
+            _polarity = PolarityType.NEUTRAL;
         }
 
         /**
@@ -180,6 +188,7 @@ namespace AnnotatedSentence
             _universalDependency = null;
             _frameElement = null;
             _slot = null;
+            _polarity = PolarityType.NEUTRAL;
         }
 
         /**
@@ -198,6 +207,7 @@ namespace AnnotatedSentence
             _universalDependency = null;
             _frameElement = null;
             _slot = null;
+            _polarity = PolarityType.NEUTRAL;
         }
 
         /**
@@ -252,6 +262,8 @@ namespace AnnotatedSentence
                     }
 
                     break;
+                case ViewLayerType.POLARITY:
+                    return GetPolarityString();
                 case ViewLayerType.DEPENDENCY:
                     if (_universalDependency != null)
                     {
@@ -422,6 +434,58 @@ namespace AnnotatedSentence
             else
             {
                 this._slot = null;
+            }
+        }
+
+        /**
+         * <summary>Returns the polarity layer of the word.</summary>
+         * <returns>Polarity type of the word.</returns>
+         */
+        public PolarityType GetPolarity()
+        {
+            return _polarity;
+        }
+
+        /**
+         * <summary> Sets the polarity layer of the word.</summary>
+         * <param name="polarity">New polarity of the word.</param>
+         */
+        public void SetPolarity(string polarity)
+        {
+            if (polarity != null)
+            {
+                switch (polarity.ToLower())
+                {
+                    case "positive":
+                    case "pos":
+                        _polarity = PolarityType.POSITIVE;
+                        break;
+                    case "negative":
+                    case "neg":
+                        _polarity = PolarityType.NEGATIVE;
+                        break;
+                    default:
+                        _polarity = PolarityType.NEUTRAL;
+                        break;
+                }
+            }
+            else
+            {
+                _polarity = PolarityType.NEUTRAL;
+            }
+        }
+
+        public string GetPolarityString()
+        {
+            switch (_polarity){
+                case PolarityType.POSITIVE:
+                    return "positive";
+                case PolarityType.NEGATIVE:
+                    return "negative";
+                case PolarityType.NEUTRAL:
+                    return "neutral";
+                default:
+                    return "neutral";
             }
         }
 

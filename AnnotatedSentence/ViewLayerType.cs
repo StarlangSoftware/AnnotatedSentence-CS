@@ -21,6 +21,7 @@ namespace AnnotatedSentence
         ENGLISH_PROPBANK,
         ENGLISH_SEMANTICS,
         FRAMENET,
-        SLOT
+        SLOT,
+        POLARITY
     }
 }
