@@ -22,6 +22,7 @@ namespace AnnotatedSentence
         ENGLISH_SEMANTICS,
         FRAMENET,
         SLOT,
-        POLARITY
+        POLARITY,
+        CCG
     }
 }

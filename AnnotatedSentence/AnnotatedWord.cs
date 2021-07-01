@@ -14,7 +14,18 @@ using SentiNet;
 namespace AnnotatedSentence
 {
     public class AnnotatedWord : Word
-    {
+    { 
+        /**
+     * In order to add another layer, do the following:
+     * 1. Select a name for the layer.
+     * 2. Add a new constant to ViewLayerType.
+     * 3. Add private attribute.
+     * 4. Add an if-else to the constructor, where you set the private attribute with the layer name.
+     * 5. Update toString method.
+     * 6. Add initial value to the private attribute in other constructors.
+     * 7. Update getLayerInfo.
+     * 8. Add getter and setter methods.
+     */
         private MorphologicalParse _parse;
         private MetamorphicParse _metamorphicParse;
         private string _semantic;
@@ -27,6 +38,7 @@ namespace AnnotatedSentence
         private PolarityType _polarity;
         private Rectangle _area;
         private bool _selected;
+        private string _ccg;
 
         /**
          * <summary> Constructor for the {@link AnnotatedWord} class. Gets the word with its annotation layers as input and sets the
@@ -86,6 +98,9 @@ namespace AnnotatedSentence
                     case "shallowparse":
                         _shallowParse = layerValue;
                         break;
+                    case "ccg":
+                        _ccg = layerValue;
+                        break;
                     case "universalDependency":
                     case "universaldependency":
                     {
@@ -144,6 +159,11 @@ namespace AnnotatedSentence
                 result = result + "{shallowParse=" + _shallowParse + "}";
             }
 
+            if (_ccg != null)
+            {
+                result = result + "{ccg=" + _ccg + "}";
+            }
+
             if (_universalDependency != null)
             {
                 result = result + "{universalDependency=" + _universalDependency.To() + "$" +
@@ -170,6 +190,7 @@ namespace AnnotatedSentence
             _frameElement = null;
             _slot = null;
             _polarity = PolarityType.NEUTRAL;
+            _ccg = null;
         }
 
         /**
@@ -189,6 +210,7 @@ namespace AnnotatedSentence
             _frameElement = null;
             _slot = null;
             _polarity = PolarityType.NEUTRAL;
+            _ccg = null;
         }
 
         /**
@@ -208,6 +230,7 @@ namespace AnnotatedSentence
             _frameElement = null;
             _slot = null;
             _polarity = PolarityType.NEUTRAL;
+            _ccg = null;
         }
 
         /**
@@ -264,6 +287,8 @@ namespace AnnotatedSentence
                     break;
                 case ViewLayerType.POLARITY:
                     return GetPolarityString();
+                case ViewLayerType.CCG:
+                    return _ccg;
                 case ViewLayerType.DEPENDENCY:
                     if (_universalDependency != null)
                     {
@@ -507,6 +532,23 @@ namespace AnnotatedSentence
             _shallowParse = parse;
         }
 
+        /**
+         * <summary> Returns the ccg layer of the word.</summary>
+         * <returns> Ccg tag of the word.</returns>
+         */
+        public string GetCcg()
+        {
+            return _ccg;
+        }
+
+        /**
+         * <summary> Sets the ccg layer of the word.</summary>
+         * <param name="ccg">New ccg tag of the word.</param>
+         */
+        public void SetCcg(string ccg)
+        {
+            _ccg = ccg;
+        }
         /**
          * <summary> Returns the universal dependency layer of the word.</summary>
          * <returns>Universal dependency relation of the word.</returns>
