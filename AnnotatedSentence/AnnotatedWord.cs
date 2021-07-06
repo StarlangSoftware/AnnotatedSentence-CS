@@ -39,6 +39,7 @@ namespace AnnotatedSentence
         private Rectangle _area;
         private bool _selected;
         private string _ccg;
+        private string _posTag;
 
         /**
          * <summary> Constructor for the {@link AnnotatedWord} class. Gets the word with its annotation layers as input and sets the
@@ -100,6 +101,9 @@ namespace AnnotatedSentence
                         break;
                     case "ccg":
                         _ccg = layerValue;
+                        break;
+                    case "posTag":
+                        _posTag = layerValue;
                         break;
                     case "universalDependency":
                     case "universaldependency":
@@ -164,6 +168,11 @@ namespace AnnotatedSentence
                 result = result + "{ccg=" + _ccg + "}";
             }
 
+            if (_posTag != null)
+            {
+                result = result + "{posTag=" + _posTag + "}";
+            }
+
             if (_universalDependency != null)
             {
                 result = result + "{universalDependency=" + _universalDependency.To() + "$" +
@@ -191,6 +200,7 @@ namespace AnnotatedSentence
             _slot = null;
             _polarity = PolarityType.NEUTRAL;
             _ccg = null;
+            _posTag = null;
         }
 
         /**
@@ -211,6 +221,7 @@ namespace AnnotatedSentence
             _slot = null;
             _polarity = PolarityType.NEUTRAL;
             _ccg = null;
+            _posTag = null;
         }
 
         /**
@@ -231,6 +242,7 @@ namespace AnnotatedSentence
             _slot = null;
             _polarity = PolarityType.NEUTRAL;
             _ccg = null;
+            _posTag = null;
         }
 
         /**
@@ -289,6 +301,8 @@ namespace AnnotatedSentence
                     return GetPolarityString();
                 case ViewLayerType.CCG:
                     return _ccg;
+                case ViewLayerType.POS_TAG:
+                    return _posTag;
                 case ViewLayerType.DEPENDENCY:
                     if (_universalDependency != null)
                     {
@@ -549,6 +563,25 @@ namespace AnnotatedSentence
         {
             _ccg = ccg;
         }
+
+        /**
+         * <summary> Returns the posTag layer of the word.</summary>
+         * <returns> Pos tag of the word.</returns>
+         */
+        public string GetPosTag()
+        {
+            return _posTag;
+        }
+
+        /**
+         * <summary> Sets the posTag layer of the word.</summary>
+         * <param name="posTag">New pos tag of the word.</param>
+         */
+        public void SetPosTag(string posTag)
+        {
+            _posTag = posTag;
+        }
+
         /**
          * <summary> Returns the universal dependency layer of the word.</summary>
          * <returns>Universal dependency relation of the word.</returns>

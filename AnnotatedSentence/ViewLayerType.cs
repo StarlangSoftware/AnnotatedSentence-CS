@@ -23,6 +23,7 @@ namespace AnnotatedSentence
         FRAMENET,
         SLOT,
         POLARITY,
-        CCG
+        CCG,
+        POS_TAG
     }
 }
