@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Globalization;
 using Corpus;
@@ -40,6 +38,7 @@ namespace AnnotatedSentence
         private bool _selected;
         private string _ccg;
         private string _posTag;
+        private Language _language;
 
         /**
          * <summary> Constructor for the {@link AnnotatedWord} class. Gets the word with its annotation layers as input and sets the
@@ -64,7 +63,10 @@ namespace AnnotatedSentence
                 switch (layerType)
                 {
                     case "turkish":
+                    case "english":
+                    case "persian":
                         name = layerValue;
+                        _language = GetLanguageFromString(layerType);
                         break;
                     case "morphologicalAnalysis":
                     case "morphologicalanalysis":
@@ -123,7 +125,19 @@ namespace AnnotatedSentence
          */
         public override string ToString()
         {
-            var result = "{turkish=" + name + "}";
+            var result = "";
+            switch (_language)
+            {
+                case Language.TURKISH:
+                    result = "{turkish=" + name + "}";
+                    break;
+                case Language.ENGLISH:
+                    result = "{english=" + name + "}";
+                    break;
+                case Language.PERSIAN:
+                    result = "{persian=" + name + "}";
+                    break;
+            }
             if (_parse != null)
             {
                 result = result + "{morphologicalAnalysis=" + _parse + "}";
@@ -709,6 +723,34 @@ namespace AnnotatedSentence
             {
                 SetNamedEntityType(gazetteer.GetName());
             }
+        }
+        
+        /**
+        * Converts a language string to language.
+        * @param languageString String defining the language name.
+        * @return Language corresponding to the languageString.
+        */
+        private Language GetLanguageFromString(string languageString){
+            switch (languageString){
+                case "turkish":
+                case "Turkish":
+                    return Language.TURKISH;
+                case "english":
+                case "English":
+                    return Language.ENGLISH;
+                case "persian":
+                case "Persian":
+                    return Language.PERSIAN;
+            }
+            return Language.TURKISH;
+        }
+
+        /**
+        * Returns the language of the word.
+        * @return The language of the word.
+        */
+        public Language GetLanguage(){
+            return _language;
         }
     }
 }
