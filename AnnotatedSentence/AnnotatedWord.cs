@@ -12,7 +12,7 @@ using SentiNet;
 namespace AnnotatedSentence
 {
     public class AnnotatedWord : Word
-    { 
+    {
         /**
      * In order to add another layer, do the following:
      * 1. Select a name for the layer.
@@ -25,15 +25,16 @@ namespace AnnotatedSentence
      * 8. Add getter and setter methods.
      */
         private MorphologicalParse _parse;
+
         private MetamorphicParse _metamorphicParse;
         private string _semantic;
-        private NamedEntityType _namedEntityType;
+        private NamedEntityType? _namedEntityType;
         private Argument _argument;
         private FrameElement _frameElement;
         private UniversalDependencyRelation _universalDependency;
         private Slot _slot;
         private string _shallowParse;
-        private PolarityType _polarity;
+        private PolarityType? _polarity;
         private Rectangle _area;
         private bool _selected;
         private string _ccg;
@@ -138,6 +139,7 @@ namespace AnnotatedSentence
                     result = "{persian=" + name + "}";
                     break;
             }
+
             if (_parse != null)
             {
                 result = result + "{morphologicalAnalysis=" + _parse + "}";
@@ -153,7 +155,10 @@ namespace AnnotatedSentence
                 result = result + "{semantics=" + _semantic + "}";
             }
 
-            result = result + "{namedEntity=" + _namedEntityType + "}";
+            if (_namedEntityType != null)
+            {
+                result = result + "{namedEntity=" + _namedEntityType + "}";
+            }
 
             if (_argument != null)
             {
@@ -170,7 +175,10 @@ namespace AnnotatedSentence
                 result = result + "{slot=" + _slot + "}";
             }
 
-            result = result + "{polarity=" + GetPolarityString() + "}";
+            if (_polarity != null)
+            {
+                result = result + "{polarity=" + GetPolarityString() + "}";
+            }
 
             if (_shallowParse != null)
             {
@@ -396,7 +404,7 @@ namespace AnnotatedSentence
          */
         public NamedEntityType GetNamedEntityType()
         {
-            return _namedEntityType;
+            return (NamedEntityType) _namedEntityType;
         }
 
         /**
@@ -496,7 +504,7 @@ namespace AnnotatedSentence
          */
         public PolarityType GetPolarity()
         {
-            return _polarity;
+            return (PolarityType) _polarity;
         }
 
         /**
@@ -530,7 +538,8 @@ namespace AnnotatedSentence
 
         public string GetPolarityString()
         {
-            switch (_polarity){
+            switch (_polarity)
+            {
                 case PolarityType.POSITIVE:
                     return "positive";
                 case PolarityType.NEGATIVE:
@@ -724,14 +733,16 @@ namespace AnnotatedSentence
                 SetNamedEntityType(gazetteer.GetName());
             }
         }
-        
+
         /**
         * Converts a language string to language.
         * @param languageString String defining the language name.
         * @return Language corresponding to the languageString.
         */
-        private Language GetLanguageFromString(string languageString){
-            switch (languageString){
+        private Language GetLanguageFromString(string languageString)
+        {
+            switch (languageString)
+            {
                 case "turkish":
                 case "Turkish":
                     return Language.TURKISH;
@@ -742,6 +753,7 @@ namespace AnnotatedSentence
                 case "Persian":
                     return Language.PERSIAN;
             }
+
             return Language.TURKISH;
         }
 
@@ -749,7 +761,8 @@ namespace AnnotatedSentence
         * Returns the language of the word.
         * @return The language of the word.
         */
-        public Language GetLanguage(){
+        public Language GetLanguage()
+        {
             return _language;
         }
     }

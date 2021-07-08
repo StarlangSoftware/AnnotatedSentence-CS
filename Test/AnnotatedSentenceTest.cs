@@ -85,7 +85,7 @@ namespace Test
         [Test]
         public void TestPredicateCandidates()
         {
-            FramesetList framesetList = new FramesetList();
+            var framesetList = new FramesetList();
             Assert.AreEqual(1, sentence0.PredicateCandidates(framesetList).Count);
             Assert.AreEqual(1, sentence1.PredicateCandidates(framesetList).Count);
             Assert.AreEqual(0, sentence2.PredicateCandidates(framesetList).Count);
