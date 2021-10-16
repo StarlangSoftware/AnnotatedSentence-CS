@@ -4,6 +4,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using Corpus;
+using DependencyParser;
+using DependencyParser.Universal;
 using Dictionary.Dictionary;
 using MorphologicalAnalysis;
 using PropBank;
@@ -341,6 +343,18 @@ namespace AnnotatedSentence
             }
 
             return "";
+        }
+
+        public ParserEvaluationScore CompareParses(AnnotatedSentence sentence){
+            var score = new ParserEvaluationScore();
+            for (var i = 0; i < WordCount(); i++){
+                var relation1 = ((AnnotatedWord) words[i]).GetUniversalDependency();
+                var relation2 = ((AnnotatedWord) sentence.GetWord(i)).GetUniversalDependency();
+                if (relation1 != null && relation2 != null){
+                    score.Add(relation1.CompareRelations(relation2));
+                }
+            }
+            return score;
         }
 
         /**

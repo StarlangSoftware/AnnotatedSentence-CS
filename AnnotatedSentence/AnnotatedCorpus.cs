@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Corpus;
+using DependencyParser;
 using Dictionary.Dictionary;
 
 namespace AnnotatedSentence
@@ -44,6 +45,16 @@ namespace AnnotatedSentence
                 var sentence = new AnnotatedSentence(new FileInfo(file));
                 sentences.Add(sentence);
             }
+        }
+
+        public ParserEvaluationScore CompareParses(AnnotatedCorpus corpus){
+            var result = new ParserEvaluationScore();
+            for (var i = 0; i < sentences.Count; i++){
+                var sentence1 = (AnnotatedSentence) sentences[i];
+                var sentence2 = (AnnotatedSentence) corpus.GetSentence(i);
+                result.Add(sentence1.CompareParses(sentence2));
+            }
+            return result;
         }
 
         public void ExportUniversalDependencyFormat(string outputFileName, string path = "")

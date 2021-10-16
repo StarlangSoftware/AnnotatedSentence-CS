@@ -4,11 +4,11 @@
         <TargetFramework>netcoreapp3.1</TargetFramework>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>NlpToolkit-AnnotatedSentence</PackageId>
-        <PackageVersion>1.0.18</PackageVersion>
+        <PackageVersion>1.0.19</PackageVersion>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="NlpToolkit-DependencyParser" Version="1.0.8" />
+      <PackageReference Include="NlpToolkit-DependencyParser" Version="1.0.11" />
       <PackageReference Include="NlpToolkit-FrameNet" Version="1.0.3" />
       <PackageReference Include="NlpToolkit-NamedEntityRecognition" Version="1.0.5" />
       <PackageReference Include="NlpToolkit-PropBank" Version="1.0.3" />
