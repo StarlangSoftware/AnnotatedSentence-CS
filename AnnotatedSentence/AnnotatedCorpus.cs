@@ -47,6 +47,12 @@ namespace AnnotatedSentence
             }
         }
 
+        /// <summary>
+        /// Compares the corpus with the given corpus and returns a parser evaluation score for this comparison. The result
+        /// is calculated by summing up the parser evaluation scores of sentence by sentence dependency relation comparisons.
+        /// </summary>
+        /// <param name="corpus">Corpus to be compared.</param>
+        /// <returns>A parser evaluation score object.</returns>
         public ParserEvaluationScore CompareParses(AnnotatedCorpus corpus){
             var result = new ParserEvaluationScore();
             for (var i = 0; i < sentences.Count; i++){
@@ -57,6 +63,13 @@ namespace AnnotatedSentence
             return result;
         }
 
+        /// <summary>
+        /// Exports the annotated corpus as a UD file in connlu format. Every sentence is converted into connlu format and
+        /// appended to the output file. Multiple paths are possible in the annotated corpus. This method outputs the
+        /// sentences in the given path.
+        /// </summary>
+        /// <param name="outputFileName">Output file name in connlu format.</param>
+        /// <param name="path">Current path for the part of the annotated corpus.</param>
         public void ExportUniversalDependencyFormat(string outputFileName, string path = "")
         {
             var streamWriter = new StreamWriter(outputFileName);

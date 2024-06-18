@@ -536,6 +536,10 @@ namespace AnnotatedSentence
             }
         }
 
+        /// <summary>
+        /// Returns the polarity layer of the word.
+        /// </summary>
+        /// <returns>Polarity string of the word.</returns>
         public string GetPolarityString()
         {
             switch (_polarity)
@@ -624,6 +628,12 @@ namespace AnnotatedSentence
             _universalDependency = new UniversalDependencyRelation(to, dependencyType);
         }
 
+        /// <summary>
+        /// Returns the connlu format string for this word. Adds surface form, root, universal pos tag, features, and
+        /// universal dependency information.
+        /// </summary>
+        /// <param name="sentenceLength">Number of words in the sentence.</param>
+        /// <returns>The connlu format string for this word.</returns>
         public string GetUniversalDependencyFormat(int sentenceLength)
         {
             if (_parse != null)
@@ -718,6 +728,10 @@ namespace AnnotatedSentence
             this._selected = selected;
         }
 
+        /// <summary>
+        /// Checks the gazetteer and sets the named entity tag accordingly.
+        /// </summary>
+        /// <param name="gazetteer">Gazetteer used to set named entity tag.</param>
         public void CheckGazetteer(Gazetteer gazetteer)
         {
             var wordLowercase = name.ToLower(new CultureInfo("tr"));

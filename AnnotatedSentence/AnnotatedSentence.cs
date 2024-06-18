@@ -1,11 +1,9 @@
-using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using Corpus;
 using DependencyParser;
-using DependencyParser.Universal;
 using Dictionary.Dictionary;
 using MorphologicalAnalysis;
 using PropBank;
@@ -133,6 +131,13 @@ namespace AnnotatedSentence
             return false;
         }
 
+        /// <summary>
+        /// Replaces id's of predicates, which have previousId as synset id, with currentId. Replaces also predicate id's of
+        /// frame elements, which have predicate id's previousId, with currentId.
+        /// </summary>
+        /// <param name="previousId">Previous id of the synset.</param>
+        /// <param name="currentId">Replacement id.</param>
+        /// <returns>Returns true, if any replacement has been done; false otherwise.</returns>
         public bool UpdateConnectedPredicate(string previousId, string currentId)
         {
             var modified = false;
@@ -345,6 +350,12 @@ namespace AnnotatedSentence
             return "";
         }
 
+        /// <summary>
+        /// Compares the sentence with the given sentence and returns a parser evaluation score for this comparison. The result
+        /// is calculated by summing up the parser evaluation scores of word by word dpendency relation comparisons.
+        /// </summary>
+        /// <param name="sentence">Sentence to be compared.</param>
+        /// <returns>A parser evaluation score object.</returns>
         public ParserEvaluationScore CompareParses(AnnotatedSentence sentence){
             var score = new ParserEvaluationScore();
             for (var i = 0; i < WordCount(); i++){
@@ -365,11 +376,20 @@ namespace AnnotatedSentence
             WriteToFile(new StreamWriter(_file.FullName));
         }
 
+        /// <summary>
+        /// Saves the current sentence.
+        /// </summary>
+        /// <param name="fileName">Name of the output file.</param>
         public void Save(string fileName)
         {
             WriteToFile(new StreamWriter(fileName));
         }
 
+        /// <summary>
+        /// Returns the connlu format of the sentence with appended prefix string based on the path.
+        /// </summary>
+        /// <param name="path">Path of the sentence.</param>
+        /// <returns>The connlu format of the sentence with appended prefix string based on the path.</returns>
         public string GetUniversalDependencyFormat(string path = "")
         {
             var result = "# sent_id = " + path + GetFileName() + "\n" + "# text = " + ToWords() + "\n";
