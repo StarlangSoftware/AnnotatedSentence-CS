@@ -3,17 +3,17 @@
     <PropertyGroup>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>NlpToolkit-AnnotatedSentence</PackageId>
-        <PackageVersion>1.0.21</PackageVersion>
-        <TargetFrameworks>netcoreapp3.1;net8.0</TargetFrameworks>
+        <PackageVersion>1.0.22</PackageVersion>
+        <TargetFramework>net8.0</TargetFramework>
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="NlpToolkit-DependencyParser" Version="1.0.14" />
-      <PackageReference Include="NlpToolkit-FrameNet" Version="1.0.5" />
-      <PackageReference Include="NlpToolkit-NamedEntityRecognition" Version="1.0.6" />
-      <PackageReference Include="NlpToolkit-PropBank" Version="1.0.5" />
-      <PackageReference Include="NlpToolkit-SentiNet" Version="1.0.4" />
-      <PackageReference Include="NlpToolkit-WordNet" Version="1.0.17" />
+      <PackageReference Include="NlpToolkit-DependencyParser" Version="1.0.20" />
+      <PackageReference Include="NlpToolkit-FrameNet" Version="1.0.6" />
+      <PackageReference Include="NlpToolkit-NamedEntityRecognition" Version="1.0.7" />
+      <PackageReference Include="NlpToolkit-PropBank" Version="1.0.6" />
+      <PackageReference Include="NlpToolkit-SentiNet" Version="1.0.5" />
+      <PackageReference Include="NlpToolkit-WordNet" Version="1.0.18" />
     </ItemGroup>
 
 </Project>

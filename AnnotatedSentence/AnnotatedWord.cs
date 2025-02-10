@@ -29,8 +29,8 @@ namespace AnnotatedSentence
         private MetamorphicParse _metamorphicParse;
         private string _semantic;
         private NamedEntityType? _namedEntityType;
-        private Argument _argument;
-        private FrameElement _frameElement;
+        private ArgumentList _argumentList;
+        private FrameElementList _frameElementList;
         private UniversalDependencyRelation _universalDependency;
         private Slot _slot;
         private string _shallowParse;
@@ -86,11 +86,11 @@ namespace AnnotatedSentence
                         break;
                     case "propBank":
                     case "propbank":
-                        _argument = new Argument(layerValue);
+                        _argumentList = new ArgumentList(layerValue);
                         break;
                     case "framenet":
                     case "frameNet":
-                        _frameElement = new FrameElement(layerValue);
+                        _frameElementList = new FrameElementList(layerValue);
                         break;
                     case "slot":
                         _slot = new Slot(layerValue);
@@ -160,14 +160,14 @@ namespace AnnotatedSentence
                 result = result + "{namedEntity=" + _namedEntityType + "}";
             }
 
-            if (_argument != null)
+            if (_argumentList != null)
             {
-                result = result + "{propbank=" + _argument + "}";
+                result = result + "{propbank=" + _argumentList + "}";
             }
 
-            if (_frameElement != null)
+            if (_frameElementList != null)
             {
-                result = result + "{framenet=" + _frameElement + "}";
+                result = result + "{framenet=" + _frameElementList + "}";
             }
 
             if (_slot != null)
@@ -215,10 +215,10 @@ namespace AnnotatedSentence
             _parse = null;
             _metamorphicParse = null;
             _semantic = null;
-            _argument = new Argument("NONE", null);
+            _argumentList = null;
             _shallowParse = null;
             _universalDependency = null;
-            _frameElement = null;
+            _frameElementList = null;
             _slot = null;
             _polarity = PolarityType.NEUTRAL;
             _ccg = null;
@@ -234,12 +234,12 @@ namespace AnnotatedSentence
         {
             this._parse = parse;
             this._namedEntityType = NamedEntityType.NONE;
-            _argument = new Argument("NONE", null);
+            _argumentList = null;
             _metamorphicParse = null;
             _semantic = null;
             _shallowParse = null;
             _universalDependency = null;
-            _frameElement = null;
+            _frameElementList = null;
             _slot = null;
             _polarity = PolarityType.NEUTRAL;
             _ccg = null;
@@ -255,12 +255,12 @@ namespace AnnotatedSentence
         {
             this._parse = parse;
             this._namedEntityType = NamedEntityType.NONE;
-            _argument = new Argument("NONE", null);
+            _argumentList = null;
             SetMetamorphicParse(parse.WithList());
             _semantic = null;
             _shallowParse = null;
             _universalDependency = null;
-            _frameElement = null;
+            _frameElementList = null;
             _slot = null;
             _polarity = PolarityType.NEUTRAL;
             _ccg = null;
@@ -299,16 +299,16 @@ namespace AnnotatedSentence
                 case ViewLayerType.TURKISH_WORD:
                     return name;
                 case ViewLayerType.PROPBANK:
-                    if (_argument != null)
+                    if (_argumentList != null)
                     {
-                        return _argument.ToString();
+                        return _argumentList.ToString();
                     }
 
                     break;
                 case ViewLayerType.FRAMENET:
-                    if (_frameElement != null)
+                    if (_frameElementList != null)
                     {
-                        return _frameElement.ToString();
+                        return _frameElementList.ToString();
                     }
 
                     break;
@@ -427,24 +427,24 @@ namespace AnnotatedSentence
          * <summary> Returns the semantic role layer of the word.</summary>
          * <returns>Semantic role tag of the word.</returns>
          */
-        public Argument GetArgument()
+        public ArgumentList GetArgumentList()
         {
-            return _argument;
+            return _argumentList;
         }
 
         /**
          * <summary> Sets the semantic role layer of the word.</summary>
-         * <param name="argument">New semantic role tag of the word.</param>
+         * <param name="argumentList">New semantic role tag of the word.</param>
          */
-        public void SetArgument(string argument)
+        public void SetArgumentList(string argumentList)
         {
-            if (argument != null)
+            if (argumentList != null)
             {
-                this._argument = new Argument(argument);
+                this._argumentList = new ArgumentList(argumentList);
             }
             else
             {
-                this._argument = null;
+                this._argumentList = null;
             }
         }
 
@@ -452,24 +452,24 @@ namespace AnnotatedSentence
          * <summary> Returns the frame element layer of the word.</summary>
          * <returns>Frame element tag of the word.</returns>
          */
-        public FrameElement GetFrameElement()
+        public FrameElementList GetFrameElementList()
         {
-            return _frameElement;
+            return _frameElementList;
         }
 
         /**
          * <summary> Sets the frame element layer of the word.</summary>
-         * <param name="frameElement">New frame element tag of the word.</param>
+         * <param name="frameElementList">New frame element tag of the word.</param>
          */
-        public void SetFrameElement(string frameElement)
+        public void SetFrameElementList(string frameElementList)
         {
-            if (frameElement != null)
+            if (frameElementList != null)
             {
-                this._frameElement = new FrameElement(frameElement);
+                this._frameElementList = new FrameElementList(frameElementList);
             }
             else
             {
-                this._frameElement = null;
+                this._frameElementList = null;
             }
         }
 

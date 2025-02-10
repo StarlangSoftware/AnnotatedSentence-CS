@@ -101,10 +101,12 @@ namespace AnnotatedSentence
             foreach (var word in words)
             {
                 var annotatedWord = (AnnotatedWord) word;
-                if (annotatedWord.GetArgument() != null &&
-                    annotatedWord.GetArgument().GetArgumentType().Equals("PREDICATE"))
+                if (annotatedWord.GetArgumentList() != null)
                 {
-                    return true;
+                    if (annotatedWord.GetArgumentList().ContainsPredicate())
+                    {
+                        return true;
+                    }
                 }
             }
 
@@ -121,10 +123,12 @@ namespace AnnotatedSentence
             foreach (var word in words)
             {
                 var annotatedWord = (AnnotatedWord) word;
-                if (annotatedWord.GetFrameElement() != null &&
-                    annotatedWord.GetFrameElement().GetFrameElementType().Equals("PREDICATE"))
+                if (annotatedWord.GetFrameElementList() != null)
                 {
-                    return true;
+                    if (annotatedWord.GetFrameElementList().ContainsPredicate())
+                    {
+                        return true;
+                    }
                 }
             }
 
@@ -144,17 +148,23 @@ namespace AnnotatedSentence
             foreach (var word in words)
             {
                 var annotatedWord = (AnnotatedWord) word;
-                if (annotatedWord.GetArgument() != null && annotatedWord.GetArgument().GetId() != null &&
-                    annotatedWord.GetArgument().GetId().Equals(previousId))
+                var argumentList = annotatedWord.GetArgumentList();
+                if (argumentList != null)
                 {
-                    annotatedWord.SetArgument(annotatedWord.GetArgument().GetArgumentType() + "$" + currentId);
-                    modified = true;
+                    if (argumentList.ContainsPredicateWithId(previousId))
+                    {
+                        argumentList.UpdateConnectedId(previousId, currentId);
+                        modified = true;
+                    }
                 }
-                if (annotatedWord.GetFrameElement() != null && annotatedWord.GetFrameElement().GetId() != null &&
-                    annotatedWord.GetFrameElement().GetId().Equals(previousId))
+                var frameElementList = annotatedWord.GetFrameElementList();
+                if (frameElementList != null)
                 {
-                    annotatedWord.SetFrameElement(annotatedWord.GetFrameElement().GetFrameElementType() + "$" + annotatedWord.GetFrameElement().GetFrame() + "$" + currentId);
-                    modified = true;
+                    if (frameElementList.ContainsPredicateWithId(previousId))
+                    {
+                        frameElementList.UpdateConnectedId(previousId, currentId);
+                        modified = true;
+                    }
                 }
             }
 
